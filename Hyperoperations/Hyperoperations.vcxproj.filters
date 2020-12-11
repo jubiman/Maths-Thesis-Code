@@ -18,5 +18,13 @@
     <ClCompile Include="Hyperoperations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mpfr2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="mpfr2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
