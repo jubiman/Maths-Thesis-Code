@@ -1,11 +1,9 @@
 #pragma once
 // C standard includes
+#include <iostream>
 #include <string>
 // Boost includes
-#include <boost/multiprecision/cpp_int.hpp> // Defines cpp int backend for large numbers (int1024_t)
-
-namespace mp = boost::multiprecision;
-#define MAX 1000
+#define MAX 0x7fffffff/32/4 // 2147483647
 namespace mpfr2 {
 	class mpfr
 	{
@@ -14,10 +12,10 @@ namespace mpfr2 {
 		int res_size;
 		void setNumber(std::string);
 		static int multiply(int, int[], int);
-		static int multiply(mpfr, mpfr&);
+		static int multiply(mpfr&, mpfr);
 		static mpfr pow(mpfr, int);
-		static void pow(mpfr&, mpfr);
+		static mpfr pow(mpfr, mpfr);
+		static void pow(mpfr&, mpfr, int8_t);
 		static void subfull(mpfr, mpfr);
 	};
 }
-

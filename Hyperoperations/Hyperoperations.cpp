@@ -2,16 +2,17 @@
 //
 #include <iostream>
 #include <math.h>
+#include <fstream>
 
 // Boost libraries
-#include <boost/multiprecision/cpp_int.hpp>             // Defines the Backend type for cpp ints (int1024_t)
-#include <boost/multiprecision/cpp_bin_float.hpp>       // Defines the Backend type for cpp floats
+//#include <boost/multiprecision/cpp_int.hpp>             // Defines the Backend type for cpp ints (int1024_t)
+//#include <boost/multiprecision/cpp_bin_float.hpp>       // Defines the Backend type for cpp floats
 
 // Local headers
 #include "mpfr2.h" // Defines local mpfr algorithm library
 
 // Namespaces
-namespace mp = boost::multiprecision;     // Reduce the typing a bit later...
+//namespace mp = boost::multiprecision;     // Reduce the typing a bit later...
 namespace m = mpfr2;
 
 m::mpfr tetration(m::mpfr, int);
@@ -20,31 +21,51 @@ m::mpfr tetration(m::mpfr, int);
 
 int main()
 {
-    std::cout << "Taking input..." << std::endl;
+
+    /*m::mpfr u, res;
+    u.setNumber("8175891895781"); res.setNumber("735782758972");
+
+    int r = m::mpfr::multiply(u, res);
+
+    for (int i = u.res_size - 1; i >= 0; i--)
+        std::cout << u._a[i];
+
+
+
+    char h; std::cin.ignore(); std::cin >> h;
+    return 0;*/
+    /*std::cout << "Taking input..." << std::endl;
     while (!false) {
         std::string a; int b;
         std::cin >> a >> b;
         m::mpfr t;
-        t.setNumber(a);
+        t.setNumber(a); //t2.setNumber(b);
+        m::mpfr res = tetration(t, b);
 
-        /*t.res_size = m::mpfr::multiply(t, t._a, t.res_size);
-        for (int i = t.res_size - 1; i >= 0; i--)
-            std::cout << t._a[i];*/
-        
-        
-        
-        //m::mpfr res = tetration(t, b);
-        m::mpfr t2;
-        t2.setNumber("2");
-        m::mpfr::pow(t, t2);
         std::cout << a << "^^" << b << " = " << std::flush;
-        for (int i = t.res_size - 1; i >= 0; i--)
-            std::cout << t._a[i];
+        std::ofstream f("out.txt");
+        for (int i = res.res_size - 1; i >= 0; i--) {
+            std::cout << res._a[i];
+            f << res._a[i];
+        }
 
-
-
-
-        //rec(t._a, b);
+        
+        std::cout << std::endl << std::endl;
+    }*/
+    // Hardcoded tests
+    int x = 7;
+    std::ofstream f("out.txt");
+    m::mpfr t;
+    for(int b=1; b<x;b++) {
+        std::cout << "2^^" << b << std::endl; // Hardcoded message
+        t.setNumber("2");
+        m::mpfr res = tetration(t, b);
+        
+        for (int i = res.res_size - 1; i >= 0; i--) {
+            std::cout << res._a[i];
+            f << res._a[i];
+        }
+        f << std::endl << std::endl;
         std::cout << std::endl << std::endl;
     }
 
@@ -66,8 +87,8 @@ m::mpfr tetration(m::mpfr a, int b)
 {
     m::mpfr tmp = a;
     if (b <= 0) return m::mpfr();
-    for (; b > 1; b--) m::mpfr::pow(a, tmp);
-    return a;
+    for (; b > 1; b--) tmp = m::mpfr::pow(a, tmp);
+    return tmp;
 }
 
 
